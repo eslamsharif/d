@@ -3,7 +3,20 @@
     "main": {
       "type": "main-cart",
       "settings": {}
+    },
+    "services": {
+      "type": "service-highlights",
+      "blocks": {
+        "service-1": { "type": "highlight", "settings": { "icon": "truck", "heading": "Fast Delivery", "text": "Tracked shipping updates" } },
+        "service-2": { "type": "highlight", "settings": { "icon": "refresh", "heading": "Easy Returns", "text": "30 day return window" } },
+        "service-3": { "type": "highlight", "settings": { "icon": "shield", "heading": "Secure Checkout", "text": "Encrypted payment flow" } },
+        "service-4": { "type": "highlight", "settings": { "icon": "check", "heading": "Support", "text": "Help before and after purchase" } }
+      },
+      "block_order": ["service-1", "service-2", "service-3", "service-4"],
+      "settings": {
+        "style": "compact"
+      }
     }
   },
-  "order": ["main"]
+  "order": ["main", "services"]
 }

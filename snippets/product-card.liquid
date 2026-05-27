@@ -2,28 +2,76 @@
   assign card_product = product_card_product
   assign show_rating = show_rating | default: settings.show_rating
   assign show_swatches = show_swatches | default: settings.show_color_swatches
+  assign selected_variant = card_product.selected_or_first_available_variant
+  assign second_media = card_product.media[1]
 -%}
 
-<article class="product-card">
-  <a class="product-card__media" href="{{ card_product.url | default: '#' }}" aria-label="{{ card_product.title | default: 'Product' | escape }}">
-    {%- if card_product.featured_media -%}
-      {{
-        card_product.featured_media
-        | image_url: width: 700
-        | image_tag:
-          loading: 'lazy',
-          sizes: '(min-width: 990px) 25vw, (min-width: 700px) 33vw, 50vw',
-          widths: '240, 360, 480, 700',
-          alt: card_product.featured_media.alt | escape
-      }}
-    {%- else -%}
-      <div class="product-card__placeholder">
-        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-      </div>
+<article class="product-card product-card--enhanced">
+  <div class="product-card__media-wrap">
+    <a class="product-card__media" href="{{ card_product.url | default: '#' }}" aria-label="{{ card_product.title | default: 'Product' | escape }}">
+      {%- if card_product.featured_media -%}
+        {{
+          card_product.featured_media
+          | image_url: width: 700
+          | image_tag:
+            loading: 'lazy',
+            sizes: '(min-width: 990px) 25vw, (min-width: 700px) 33vw, 50vw',
+            widths: '240, 360, 480, 700',
+            class: 'product-card__image product-card__image--primary',
+            alt: card_product.featured_media.alt | escape
+        }}
+        {%- if second_media and second_media.media_type == 'image' -%}
+          {{
+            second_media
+            | image_url: width: 700
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 990px) 25vw, (min-width: 700px) 33vw, 50vw',
+              widths: '240, 360, 480, 700',
+              class: 'product-card__image product-card__image--secondary',
+              alt: second_media.alt | escape
+          }}
+        {%- endif -%}
+      {%- else -%}
+        <div class="product-card__placeholder">
+          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        </div>
+      {%- endif -%}
+    </a>
+
+    <div class="product-card__badges">
+      {%- if card_product != blank and card_product.compare_at_price > card_product.price -%}
+        <span>Sale</span>
+      {%- elsif card_product.tags contains 'new' or card_product.tags contains 'New' -%}
+        <span>New</span>
+      {%- else -%}
+        <span>Trending</span>
+      {%- endif -%}
+    </div>
+
+    <div class="product-card__actions" aria-label="Product actions">
+      <a href="{{ card_product.url | default: '#' }}" aria-label="View {{ card_product.title | default: 'Product' | escape }}">
+        {% render 'icon', icon: 'search', class: 'icon icon--small' %}
+      </a>
+      <a href="{{ card_product.url | default: '#' }}" aria-label="Save {{ card_product.title | default: 'Product' | escape }}">
+        {% render 'icon', icon: 'heart', class: 'icon icon--small' %}
+      </a>
+    </div>
+
+    {%- if card_product != blank and selected_variant.available -%}
+      {%- form 'product', card_product, class: 'product-card__quick-add' -%}
+        <input type="hidden" name="id" value="{{ selected_variant.id }}">
+        <input type="hidden" name="quantity" value="1">
+        <button type="submit">Quick Add</button>
+      {%- endform -%}
     {%- endif -%}
-  </a>
+  </div>
 
   <div class="product-card__body">
+    {%- if card_product.vendor != blank -%}
+      <p class="product-card__vendor">{{ card_product.vendor }}</p>
+    {%- endif -%}
+
     <h3 class="product-card__title">
       <a href="{{ card_product.url | default: '#' }}">{{ card_product.title | default: 'Gradient Graphic T-shirt' }}</a>
     </h3>
@@ -53,7 +101,35 @@
         {%- if option_name contains 'color' or option_name contains 'colour' -%}
           <div class="product-card__swatches" aria-label="{{ option.name }}">
             {%- for value in option.values limit: 5 -%}
-              <span class="swatch" style="--swatch-color: {{ value | handle | replace: '-', '' }};" title="{{ value | escape }}"></span>
+              {%- liquid
+                assign value_downcase = value | downcase
+                assign swatch_color = '#8a7a63'
+                case value_downcase
+                  when 'black'
+                    assign swatch_color = '#161616'
+                  when 'white'
+                    assign swatch_color = '#f7f7f7'
+                  when 'blue'
+                    assign swatch_color = '#2f5f89'
+                  when 'navy'
+                    assign swatch_color = '#1c2742'
+                  when 'green'
+                    assign swatch_color = '#5e6b4f'
+                  when 'khaki'
+                    assign swatch_color = '#77705d'
+                  when 'brown'
+                    assign swatch_color = '#6b5142'
+                  when 'royal brown'
+                    assign swatch_color = '#594336'
+                  when 'gray'
+                    assign swatch_color = '#8c8c8c'
+                  when 'grey'
+                    assign swatch_color = '#8c8c8c'
+                  when 'red'
+                    assign swatch_color = '#b83d32'
+                endcase
+              -%}
+              <span class="swatch" style="--swatch-color: {{ swatch_color }};" title="{{ value | escape }}"></span>
             {%- endfor -%}
           </div>
         {%- endif -%}

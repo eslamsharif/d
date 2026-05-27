@@ -6,7 +6,20 @@
         "products_per_page": 12,
         "show_tags": true
       }
+    },
+    "services": {
+      "type": "service-highlights",
+      "blocks": {
+        "service-1": { "type": "highlight", "settings": { "icon": "truck", "heading": "Free Shipping", "text": "On all orders over $75" } },
+        "service-2": { "type": "highlight", "settings": { "icon": "refresh", "heading": "Easy Returns", "text": "30 day return window" } },
+        "service-3": { "type": "highlight", "settings": { "icon": "shield", "heading": "Secure Checkout", "text": "Encrypted payment flow" } },
+        "service-4": { "type": "highlight", "settings": { "icon": "star", "heading": "Premium Quality", "text": "Curated daily essentials" } }
+      },
+      "block_order": ["service-1", "service-2", "service-3", "service-4"],
+      "settings": {
+        "style": "compact"
+      }
     }
   },
-  "order": ["main"]
+  "order": ["main", "services"]
 }

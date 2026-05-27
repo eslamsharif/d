@@ -23,6 +23,9 @@
     menu.addEventListener('click', function (event) {
       if (event.target === menu) closeMenu();
     });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && !menu.hidden) closeMenu();
+    });
   }
 
   function initQuantityControls(scope) {
@@ -114,10 +117,71 @@
     });
   }
 
+  function updateCartCount(count) {
+    var cartLink = document.querySelector('[data-cart-link]');
+    if (!cartLink) return;
+
+    var badge = cartLink.querySelector('[data-cart-count]');
+    if (!badge && count > 0) {
+      badge = document.createElement('span');
+      badge.className = 'cart-count';
+      badge.setAttribute('data-cart-count', '');
+      cartLink.appendChild(badge);
+    }
+
+    if (badge) {
+      badge.textContent = count;
+      badge.hidden = count <= 0;
+    }
+  }
+
+  function initQuickAdd(scope) {
+    scope.querySelectorAll('.product-card__quick-add').forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!window.fetch || !window.ShopCo || !window.ShopCo.routes) return;
+
+        event.preventDefault();
+        var button = form.querySelector('button');
+        var originalText = button ? button.textContent : '';
+        if (button) {
+          button.disabled = true;
+          button.textContent = 'Adding...';
+        }
+
+        fetch(window.ShopCo.routes.cartAdd + '.js', {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' }
+        })
+          .then(function (response) {
+            if (!response.ok) throw new Error('Cart add failed');
+            return fetch(window.ShopCo.routes.cart + '.js', { headers: { Accept: 'application/json' } });
+          })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (cart) {
+            updateCartCount(cart.item_count || 0);
+            if (button) button.textContent = 'Added';
+            window.setTimeout(function () {
+              if (button) button.textContent = originalText;
+            }, 1400);
+          })
+          .catch(function () {
+            form.submit();
+          })
+          .finally(function () {
+            if (button) button.disabled = false;
+          });
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
     initMobileMenu();
     initQuantityControls(document);
     initProductGallery();
     initVariantPickers();
+    initQuickAdd(document);
   });
 })();

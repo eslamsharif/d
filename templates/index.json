@@ -45,6 +45,19 @@
       "block_order": ["brand-1", "brand-2", "brand-3", "brand-4", "brand-5"],
       "settings": {}
     },
+    "services": {
+      "type": "service-highlights",
+      "blocks": {
+        "service-1": { "type": "highlight", "settings": { "icon": "truck", "heading": "Free Shipping", "text": "On all orders over $75" } },
+        "service-2": { "type": "highlight", "settings": { "icon": "refresh", "heading": "Easy Returns", "text": "30 day return window" } },
+        "service-3": { "type": "highlight", "settings": { "icon": "shield", "heading": "Secure Checkout", "text": "Encrypted payment flow" } },
+        "service-4": { "type": "highlight", "settings": { "icon": "star", "heading": "Premium Quality", "text": "Curated daily essentials" } }
+      },
+      "block_order": ["service-1", "service-2", "service-3", "service-4"],
+      "settings": {
+        "style": "band"
+      }
+    },
     "new-arrivals": {
       "type": "featured-collection",
       "settings": {
@@ -74,6 +87,19 @@
       "block_order": ["style-1", "style-2", "style-3", "style-4"],
       "settings": {
         "heading": "Browse by Dress Style"
+      }
+    },
+    "promos": {
+      "type": "promo-panels",
+      "blocks": {
+        "promo-1": { "type": "panel", "settings": { "eyebrow": "New Season", "heading": "Clean layers for every day", "text": "Soft neutrals, relaxed silhouettes, and easy styling.", "link_label": "Explore" } },
+        "promo-2": { "type": "panel", "settings": { "eyebrow": "Weekend", "heading": "Casual essentials", "text": "T-shirts, denim, and outerwear with a sharper finish.", "link_label": "Shop Casual" } },
+        "promo-3": { "type": "panel", "settings": { "eyebrow": "Occasion", "heading": "Dress smarter", "text": "Tailored pieces for sharper days and nights out.", "link_label": "Shop Formal" } }
+      },
+      "block_order": ["promo-1", "promo-2", "promo-3"],
+      "settings": {
+        "heading": "Shop The Moment",
+        "text": "Editorial collections designed around the way people actually dress."
       }
     },
     "testimonials": {
@@ -115,5 +141,5 @@
       }
     }
   },
-  "order": ["hero", "brands", "new-arrivals", "top-selling", "styles", "testimonials", "newsletter"]
+  "order": ["hero", "brands", "services", "new-arrivals", "top-selling", "styles", "promos", "testimonials", "newsletter"]
 }
