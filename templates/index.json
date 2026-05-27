@@ -1,0 +1,119 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "blocks": {
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": "200+",
+            "label": "International Brands"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": "2,000+",
+            "label": "High-Quality Products"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": "30,000+",
+            "label": "Happy Customers"
+          }
+        }
+      },
+      "block_order": ["stat-1", "stat-2", "stat-3"],
+      "settings": {
+        "heading": "Find Clothes That Matches Your Style",
+        "text": "Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.",
+        "button_label": "Shop Now",
+        "button_link": "/collections/all"
+      }
+    },
+    "brands": {
+      "type": "brand-strip",
+      "blocks": {
+        "brand-1": { "type": "brand", "settings": { "name": "VERSACE" } },
+        "brand-2": { "type": "brand", "settings": { "name": "ZARA" } },
+        "brand-3": { "type": "brand", "settings": { "name": "GUCCI" } },
+        "brand-4": { "type": "brand", "settings": { "name": "PRADA" } },
+        "brand-5": { "type": "brand", "settings": { "name": "Calvin Klein" } }
+      },
+      "block_order": ["brand-1", "brand-2", "brand-3", "brand-4", "brand-5"],
+      "settings": {}
+    },
+    "new-arrivals": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "New Arrivals",
+        "products_to_show": 4,
+        "columns": "4",
+        "button_label": "View All"
+      }
+    },
+    "top-selling": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Top Selling",
+        "products_to_show": 4,
+        "columns": "4",
+        "button_label": "View All"
+      }
+    },
+    "styles": {
+      "type": "style-directory",
+      "blocks": {
+        "style-1": { "type": "style", "settings": { "heading": "Casual" } },
+        "style-2": { "type": "style", "settings": { "heading": "Formal" } },
+        "style-3": { "type": "style", "settings": { "heading": "Party" } },
+        "style-4": { "type": "style", "settings": { "heading": "Gym" } }
+      },
+      "block_order": ["style-1", "style-2", "style-3", "style-4"],
+      "settings": {
+        "heading": "Browse by Dress Style"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "quote-1": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Sarah M.",
+            "quote": "I am blown away by the quality and style of the clothes I received. Every piece feels thoughtfully designed."
+          }
+        },
+        "quote-2": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Alex K.",
+            "quote": "Finding clothes that align with my personal style used to be a challenge. This store makes it effortless."
+          }
+        },
+        "quote-3": {
+          "type": "testimonial",
+          "settings": {
+            "name": "James L.",
+            "quote": "The products feel premium, the fit is right, and the whole shopping experience is smooth."
+          }
+        }
+      },
+      "block_order": ["quote-1", "quote-2", "quote-3"],
+      "settings": {
+        "heading": "Our Happy Customers"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "heading": "Stay Up To Date About Our Latest Offers",
+        "placeholder": "Enter your email address",
+        "button_label": "Subscribe to Newsletter"
+      }
+    }
+  },
+  "order": ["hero", "brands", "new-arrivals", "top-selling", "styles", "testimonials", "newsletter"]
+}

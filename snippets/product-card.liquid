@@ -1,0 +1,63 @@
+{%- liquid
+  assign card_product = product_card_product
+  assign show_rating = show_rating | default: settings.show_rating
+  assign show_swatches = show_swatches | default: settings.show_color_swatches
+-%}
+
+<article class="product-card">
+  <a class="product-card__media" href="{{ card_product.url | default: '#' }}" aria-label="{{ card_product.title | default: 'Product' | escape }}">
+    {%- if card_product.featured_media -%}
+      {{
+        card_product.featured_media
+        | image_url: width: 700
+        | image_tag:
+          loading: 'lazy',
+          sizes: '(min-width: 990px) 25vw, (min-width: 700px) 33vw, 50vw',
+          widths: '240, 360, 480, 700',
+          alt: card_product.featured_media.alt | escape
+      }}
+    {%- else -%}
+      <div class="product-card__placeholder">
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    {%- endif -%}
+  </a>
+
+  <div class="product-card__body">
+    <h3 class="product-card__title">
+      <a href="{{ card_product.url | default: '#' }}">{{ card_product.title | default: 'Gradient Graphic T-shirt' }}</a>
+    </h3>
+
+    {%- if show_rating -%}
+      {%- liquid
+        assign rating_value = card_product.metafields.reviews.rating.value.rating | default: 4.5
+      -%}
+      {% render 'rating-stars', rating: rating_value, show_text: true %}
+    {%- endif -%}
+
+    <div class="product-card__footer">
+      {%- if card_product != blank -%}
+        {% render 'price', product: card_product %}
+      {%- else -%}
+        <span class="price">
+          <span class="price__current">$145</span>
+          <span class="price__compare">$180</span>
+          <span class="price__badge">-20%</span>
+        </span>
+      {%- endif -%}
+    </div>
+
+    {%- if show_swatches and card_product != blank -%}
+      {%- for option in card_product.options_with_values -%}
+        {%- assign option_name = option.name | downcase -%}
+        {%- if option_name contains 'color' or option_name contains 'colour' -%}
+          <div class="product-card__swatches" aria-label="{{ option.name }}">
+            {%- for value in option.values limit: 5 -%}
+              <span class="swatch" style="--swatch-color: {{ value | handle | replace: '-', '' }};" title="{{ value | escape }}"></span>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+</article>

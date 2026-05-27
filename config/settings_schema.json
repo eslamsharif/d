@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Theme information",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "SHOP.CO inspired Shopify OS 2.0 theme built from the E-commerce Website Template Freebie Community visual direction."
+      }
+    ]
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "text",
+        "id": "logo_text",
+        "label": "Text logo",
+        "default": "SHOP.CO"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "heading_font",
+        "label": "Heading font",
+        "default": "helvetica_n7"
+      },
+      {
+        "type": "font_picker",
+        "id": "body_font",
+        "label": "Body font",
+        "default": "helvetica_n4"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "color_foreground",
+        "label": "Text",
+        "default": "#000000"
+      },
+      {
+        "type": "color",
+        "id": "color_muted",
+        "label": "Muted text",
+        "default": "#666666"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Surface",
+        "default": "#f2f0f1"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Border",
+        "default": "#e7e7e7"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent",
+        "default": "#7a8f65"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1100,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "label": "Page width",
+        "default": 1240
+      },
+      {
+        "type": "checkbox",
+        "id": "show_rating",
+        "label": "Show product ratings",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_color_swatches",
+        "label": "Show product color swatches",
+        "default": true
+      }
+    ]
+  }
+]

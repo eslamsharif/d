@@ -1,0 +1,117 @@
+<header class="site-header" data-section-id="{{ section.id }}">
+  {%- if section.settings.announcement != blank -%}
+    <div class="announcement-bar">
+      <div class="page-width announcement-bar__inner">
+        <span>{{ section.settings.announcement }}</span>
+        {%- if section.settings.announcement_link != blank -%}
+          <a href="{{ section.settings.announcement_link }}">Shop Now</a>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="page-width site-header__inner">
+    <button class="icon-button site-header__menu-button" type="button" aria-label="{{ 'general.menu' | t }}" aria-expanded="false" data-menu-toggle>
+      {% render 'icon', icon: 'menu' %}
+    </button>
+
+    <a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+      {%- if section.settings.logo != blank -%}
+        {{
+          section.settings.logo
+          | image_url: width: 260
+          | image_tag: loading: 'eager', widths: '120, 180, 260', class: 'site-header__logo-image', alt: shop.name
+        }}
+      {%- else -%}
+        {{ settings.logo_text | default: shop.name }}
+      {%- endif -%}
+    </a>
+
+    <nav class="site-header__nav" aria-label="Primary navigation">
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}" class="site-header__nav-link">
+          {{ link.title }}
+          {%- if link.links != blank -%}
+            {% render 'icon', icon: 'chevron-down', class: 'icon icon--small' %}
+          {%- endif -%}
+        </a>
+      {%- endfor -%}
+    </nav>
+
+    <form action="{{ routes.search_url }}" method="get" role="search" class="site-header__search">
+      <input type="hidden" name="type" value="product">
+      <span class="site-header__search-icon">{% render 'icon', icon: 'search' %}</span>
+      <input
+        type="search"
+        name="q"
+        value="{{ search.terms | escape }}"
+        placeholder="{{ 'general.search.placeholder' | t }}"
+        aria-label="{{ 'general.search.search' | t }}"
+      >
+    </form>
+
+    <div class="site-header__actions">
+      <a class="icon-button site-header__search-shortcut" href="{{ routes.search_url }}" aria-label="{{ 'general.search.search' | t }}">
+        {% render 'icon', icon: 'search' %}
+      </a>
+      <a class="icon-button" href="{{ routes.cart_url }}" aria-label="{{ 'general.cart' | t }}">
+        {% render 'icon', icon: 'cart' %}
+        {%- if cart.item_count > 0 -%}
+          <span class="cart-count">{{ cart.item_count }}</span>
+        {%- endif -%}
+      </a>
+      {%- if shop.customer_accounts_enabled -%}
+        <a class="icon-button" href="{{ routes.account_url }}" aria-label="{{ 'general.account' | t }}">
+          {% render 'icon', icon: 'account' %}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="mobile-menu" data-mobile-menu hidden>
+    <div class="mobile-menu__panel">
+      <button class="icon-button mobile-menu__close" type="button" aria-label="Close menu" data-menu-close>
+        {% render 'icon', icon: 'close' %}
+      </button>
+      <form action="{{ routes.search_url }}" method="get" role="search" class="mobile-menu__search">
+        <input type="hidden" name="type" value="product">
+        <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}">
+      </form>
+      <nav class="mobile-menu__nav" aria-label="Mobile navigation">
+        {%- for link in section.settings.menu.links -%}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+      </nav>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "announcement",
+      "label": "Announcement",
+      "default": "Sign up and get 20% off your first order."
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement link"
+    }
+  ]
+}
+{% endschema %}

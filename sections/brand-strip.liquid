@@ -1,0 +1,39 @@
+<section class="brand-strip">
+  <div class="page-width brand-strip__inner">
+    {%- for block in section.blocks -%}
+      <span class="brand-strip__item" {{ block.shopify_attributes }}>{{ block.settings.name }}</span>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Brand strip",
+  "blocks": [
+    {
+      "type": "brand",
+      "name": "Brand",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Brand name",
+          "default": "VERSACE"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand strip",
+      "blocks": [
+        { "type": "brand", "settings": { "name": "VERSACE" } },
+        { "type": "brand", "settings": { "name": "ZARA" } },
+        { "type": "brand", "settings": { "name": "GUCCI" } },
+        { "type": "brand", "settings": { "name": "PRADA" } },
+        { "type": "brand", "settings": { "name": "Calvin Klein" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

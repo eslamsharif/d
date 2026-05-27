@@ -1,0 +1,89 @@
+<footer class="site-footer">
+  <div class="page-width site-footer__grid">
+    <div class="site-footer__brand">
+      <a class="site-footer__logo" href="{{ routes.root_url }}">{{ settings.logo_text | default: shop.name }}</a>
+      <p>{{ section.settings.description }}</p>
+      <div class="site-footer__socials">
+        {%- if section.settings.instagram_url != blank -%}<a href="{{ section.settings.instagram_url }}">Instagram</a>{%- endif -%}
+        {%- if section.settings.tiktok_url != blank -%}<a href="{{ section.settings.tiktok_url }}">TikTok</a>{%- endif -%}
+        {%- if section.settings.twitter_url != blank -%}<a href="{{ section.settings.twitter_url }}">X</a>{%- endif -%}
+      </div>
+    </div>
+
+    {%- for block in section.blocks -%}
+      <div class="site-footer__links" {{ block.shopify_attributes }}>
+        <h2>{{ block.settings.heading }}</h2>
+        {%- if block.settings.menu != blank -%}
+          {%- for link in block.settings.menu.links -%}
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="page-width site-footer__bottom">
+    <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.</p>
+    <div class="site-footer__payments">
+      {%- for type in shop.enabled_payment_types -%}
+        {{ type | payment_type_svg_tag }}
+      {%- endfor -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "We have clothes that suit your style and that you are proud to wear. From women to men."
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "url",
+      "id": "tiktok_url",
+      "label": "TikTok URL"
+    },
+    {
+      "type": "url",
+      "id": "twitter_url",
+      "label": "X URL"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Link list",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Company"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "link_list", "settings": { "heading": "Company" } },
+      { "type": "link_list", "settings": { "heading": "Help" } },
+      { "type": "link_list", "settings": { "heading": "FAQ" } },
+      { "type": "link_list", "settings": { "heading": "Resources" } }
+    ]
+  }
+}
+{% endschema %}
