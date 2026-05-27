@@ -49,4 +49,23 @@
     <svg class="{{ icon_class }}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
       <path d="m20 6-11 11-5-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
+  {%- when 'heart' -%}
+    <svg class="{{ icon_class }}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M20.8 4.6a5.4 5.4 0 0 0-7.6 0L12 5.8l-1.2-1.2a5.4 5.4 0 0 0-7.6 7.6L12 21l8.8-8.8a5.4 5.4 0 0 0 0-7.6Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  {%- when 'truck' -%}
+    <svg class="{{ icon_class }}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M3 6h12v10H3V6Zm12 4h3l3 3v3h-6v-6Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M7 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4Zm10 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" fill="none" stroke="currentColor" stroke-width="2"/>
+    </svg>
+  {%- when 'refresh' -%}
+    <svg class="{{ icon_class }}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M20 7v5h-5M4 17v-5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M18.1 12A6.5 6.5 0 0 0 6.7 7.7L4 10m2 2a6.5 6.5 0 0 0 11.3 4.3L20 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  {%- when 'shield' -%}
+    <svg class="{{ icon_class }}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path d="M12 3 20 6v6c0 5-3.4 7.8-8 9-4.6-1.2-8-4-8-9V6l8-3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+      <path d="m9 12 2 2 4-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
 {%- endcase -%}

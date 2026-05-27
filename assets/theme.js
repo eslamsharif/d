@@ -75,6 +75,7 @@
       var json = form.querySelector('[data-product-json]');
       var select = form.querySelector('[data-variant-select]');
       var submit = form.querySelector('.product-form__submit');
+      var checkout = form.querySelector('.product-detail-form__checkout');
       if (!json || !select) return;
 
       var variants = [];
@@ -103,6 +104,10 @@
           if (submit) {
             submit.disabled = !variant.available;
             submit.textContent = variant.available ? 'Add to Cart' : 'Sold Out';
+          }
+
+          if (checkout) {
+            checkout.disabled = !variant.available;
           }
         });
       });
