@@ -1,20 +1,19 @@
 {%- liquid
-  assign target = product | default: line_item.product
+  assign target = product
   assign price = target.price
-  assign compare_at_price = target.compare_at_price
-
+  assign compare = target.compare_at_price
+  if variant
+    assign price = variant.price
+    assign compare = variant.compare_at_price
+  endif
   if use_variant and target.selected_or_first_available_variant
     assign price = target.selected_or_first_available_variant.price
-    assign compare_at_price = target.selected_or_first_available_variant.compare_at_price
+    assign compare = target.selected_or_first_available_variant.compare_at_price
   endif
 -%}
-
-<span class="price{% if compare_at_price > price %} price--on-sale{% endif %}">
-  <span class="price__current">{{ price | money }}</span>
-  {%- if compare_at_price > price -%}
-    <span class="price__compare">{{ compare_at_price | money }}</span>
-    <span class="price__badge">
-      -{{ compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | round }}%
-    </span>
+<span class="m-price{% if compare > price %} is-sale{% endif %}">
+  <span class="m-price-current">{{ price | money }}</span>
+  {%- if compare > price -%}
+    <span class="m-price-compare">{{ compare | money }}</span>
   {%- endif -%}
 </span>

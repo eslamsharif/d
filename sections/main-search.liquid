@@ -1,41 +1,74 @@
-<section class="search-page">
-  <div class="page-width">
-    <h1>Search</h1>
-    <form action="{{ routes.search_url }}" method="get" role="search" class="search-page__form">
-      <input type="hidden" name="type" value="product">
+<section class="m-search-page">
+  <div class="m-container">
+    <div class="m-page-head">
+      <div>
+        <div class="m-eyebrow">{{ section.settings.eyebrow }}</div>
+        <h1>{{ 'general.search.title' | t }}</h1>
+      </div>
+    </div>
+
+    <form action="{{ routes.search_url }}" method="get" role="search" class="m-search-large">
       <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}">
-      <button class="button button--primary" type="submit">{{ 'general.search.search' | t }}</button>
+      <input type="hidden" name="type" value="product">
+      <button class="m-button m-button--dark" type="submit">{% render 'icon', icon: 'search' %}<span>{{ 'general.search.submit' | t }}</span></button>
     </form>
 
-    {%- if search.performed -%}
-      {%- paginate search.results by 12 -%}
-        <div class="section-heading">
-          <h2>{{ search.results_count }} results for "{{ search.terms | escape }}"</h2>
-        </div>
+    {% if search.performed %}
+      <div class="m-toolbar">
+        <span>{{ 'general.search.results_with_count' | t: count: search.results_count }}</span>
+      </div>
 
-        <div class="product-grid product-grid--4">
-          {%- for item in search.results -%}
-            {%- if item.object_type == 'product' -%}
-              {% render 'product-card', product_card_product: item %}
-            {%- endif -%}
-          {%- endfor -%}
-        </div>
+      {% paginate search.results by section.settings.results_per_page %}
+        {% if search.results_count > 0 %}
+          <div class="m-grid m-grid--products">
+            {% for item in search.results %}
+              {% if item.object_type == 'product' %}
+                {% render 'product-card', product: item %}
+              {% endif %}
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="m-empty">
+            <h2>{{ 'general.search.no_results' | t }}</h2>
+            <a class="m-button m-button--dark" href="{{ routes.all_products_collection_url }}">{{ 'general.continue_shopping' | t }}</a>
+          </div>
+        {% endif %}
 
-        {%- if paginate.pages > 1 -%}
-          <nav class="pagination" aria-label="Pagination">
-            {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">Previous</a>{%- endif -%}
-            <span>Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
-            {%- if paginate.next -%}<a href="{{ paginate.next.url }}">Next</a>{%- endif -%}
+        {% if paginate.pages > 1 %}
+          <nav class="m-pagination" role="navigation" aria-label="{{ 'general.pagination' | t }}">
+            {% if paginate.previous %}
+              <a href="{{ paginate.previous.url }}">{% render 'icon', icon: 'chevron-left' %}<span>{{ 'general.previous' | t }}</span></a>
+            {% endif %}
+            <span>{{ paginate.current_page }} / {{ paginate.pages }}</span>
+            {% if paginate.next %}
+              <a href="{{ paginate.next.url }}"><span>{{ 'general.next' | t }}</span>{% render 'icon', icon: 'chevron' %}</a>
+            {% endif %}
           </nav>
-        {%- endif -%}
-      {%- endpaginate -%}
-    {%- endif -%}
+        {% endif %}
+      {% endpaginate %}
+    {% endif %}
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "Search",
-  "settings": []
+  "name": "Main search",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Find your upgrade"
+    },
+    {
+      "type": "range",
+      "id": "results_per_page",
+      "label": "Results per page",
+      "min": 8,
+      "max": 32,
+      "step": 4,
+      "default": 16
+    }
+  ]
 }
 {% endschema %}

@@ -1,145 +1,46 @@
 {
   "sections": {
     "hero": {
-      "type": "hero-banner",
-      "blocks": {
-        "stat-1": {
-          "type": "stat",
-          "settings": {
-            "value": "200+",
-            "label": "International Brands"
-          }
-        },
-        "stat-2": {
-          "type": "stat",
-          "settings": {
-            "value": "2,000+",
-            "label": "High-Quality Products"
-          }
-        },
-        "stat-3": {
-          "type": "stat",
-          "settings": {
-            "value": "30,000+",
-            "label": "Happy Customers"
-          }
-        }
-      },
-      "block_order": ["stat-1", "stat-2", "stat-3"],
+      "type": "hero-matger",
       "settings": {
-        "heading": "Find Clothes That Matches Your Style",
-        "text": "Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.",
-        "button_label": "Shop Now",
-        "button_link": "/collections/all"
+        "eyebrow": "New tech collection",
+        "heading": "Upgrade your everyday setup",
+        "text": "Discover premium phones, watches, audio, and accessories with a smooth MATGER shopping experience.",
+        "highlight": "Built for modern shopping.",
+        "primary_label": "Shop now",
+        "primary_link": "shopify://collections/all",
+        "secondary_label": "Browse categories",
+        "secondary_link": "#categories"
       }
     },
-    "brands": {
-      "type": "brand-strip",
-      "blocks": {
-        "brand-1": { "type": "brand", "settings": { "name": "VERSACE" } },
-        "brand-2": { "type": "brand", "settings": { "name": "ZARA" } },
-        "brand-3": { "type": "brand", "settings": { "name": "GUCCI" } },
-        "brand-4": { "type": "brand", "settings": { "name": "PRADA" } },
-        "brand-5": { "type": "brand", "settings": { "name": "Calvin Klein" } }
-      },
-      "block_order": ["brand-1", "brand-2", "brand-3", "brand-4", "brand-5"],
+    "categories": {
+      "type": "category-row",
+      "settings": {
+        "heading": "Shop by category"
+      }
+    },
+    "features": {
+      "type": "feature-tiles",
       "settings": {}
     },
-    "services": {
-      "type": "service-highlights",
-      "blocks": {
-        "service-1": { "type": "highlight", "settings": { "icon": "truck", "heading": "Free Shipping", "text": "On all orders over $75" } },
-        "service-2": { "type": "highlight", "settings": { "icon": "refresh", "heading": "Easy Returns", "text": "30 day return window" } },
-        "service-3": { "type": "highlight", "settings": { "icon": "shield", "heading": "Secure Checkout", "text": "Encrypted payment flow" } },
-        "service-4": { "type": "highlight", "settings": { "icon": "star", "heading": "Premium Quality", "text": "Curated daily essentials" } }
-      },
-      "block_order": ["service-1", "service-2", "service-3", "service-4"],
+    "featured": {
+      "type": "featured-products",
       "settings": {
-        "style": "band"
+        "heading": "Featured products",
+        "text": "Best-selling tech picks curated for daily use.",
+        "limit": 8
       }
     },
-    "new-arrivals": {
-      "type": "featured-collection",
-      "settings": {
-        "heading": "New Arrivals",
-        "products_to_show": 4,
-        "columns": "4",
-        "button_label": "View All"
-      }
-    },
-    "top-selling": {
-      "type": "featured-collection",
-      "settings": {
-        "heading": "Top Selling",
-        "products_to_show": 4,
-        "columns": "4",
-        "button_label": "View All"
-      }
-    },
-    "styles": {
-      "type": "style-directory",
-      "blocks": {
-        "style-1": { "type": "style", "settings": { "heading": "Casual" } },
-        "style-2": { "type": "style", "settings": { "heading": "Formal" } },
-        "style-3": { "type": "style", "settings": { "heading": "Party" } },
-        "style-4": { "type": "style", "settings": { "heading": "Gym" } }
-      },
-      "block_order": ["style-1", "style-2", "style-3", "style-4"],
-      "settings": {
-        "heading": "Browse by Dress Style"
-      }
-    },
-    "promos": {
-      "type": "promo-panels",
-      "blocks": {
-        "promo-1": { "type": "panel", "settings": { "eyebrow": "New Season", "heading": "Clean layers for every day", "text": "Soft neutrals, relaxed silhouettes, and easy styling.", "link_label": "Explore" } },
-        "promo-2": { "type": "panel", "settings": { "eyebrow": "Weekend", "heading": "Casual essentials", "text": "T-shirts, denim, and outerwear with a sharper finish.", "link_label": "Shop Casual" } },
-        "promo-3": { "type": "panel", "settings": { "eyebrow": "Occasion", "heading": "Dress smarter", "text": "Tailored pieces for sharper days and nights out.", "link_label": "Shop Formal" } }
-      },
-      "block_order": ["promo-1", "promo-2", "promo-3"],
-      "settings": {
-        "heading": "Shop The Moment",
-        "text": "Editorial collections designed around the way people actually dress."
-      }
-    },
-    "testimonials": {
-      "type": "testimonials",
-      "blocks": {
-        "quote-1": {
-          "type": "testimonial",
-          "settings": {
-            "name": "Sarah M.",
-            "quote": "I am blown away by the quality and style of the clothes I received. Every piece feels thoughtfully designed."
-          }
-        },
-        "quote-2": {
-          "type": "testimonial",
-          "settings": {
-            "name": "Alex K.",
-            "quote": "Finding clothes that align with my personal style used to be a challenge. This store makes it effortless."
-          }
-        },
-        "quote-3": {
-          "type": "testimonial",
-          "settings": {
-            "name": "James L.",
-            "quote": "The products feel premium, the fit is right, and the whole shopping experience is smooth."
-          }
-        }
-      },
-      "block_order": ["quote-1", "quote-2", "quote-3"],
-      "settings": {
-        "heading": "Our Happy Customers"
-      }
-    },
-    "newsletter": {
-      "type": "newsletter",
-      "settings": {
-        "heading": "Stay Up To Date About Our Latest Offers",
-        "placeholder": "Enter your email address",
-        "button_label": "Subscribe to Newsletter"
-      }
+    "values": {
+      "type": "value-strip",
+      "settings": {}
     }
   },
-  "order": ["hero", "brands", "services", "new-arrivals", "top-selling", "styles", "promos", "testimonials", "newsletter"]
+  "order": [
+    "hero",
+    "categories",
+    "features",
+    "featured",
+    "values"
+  ]
 }

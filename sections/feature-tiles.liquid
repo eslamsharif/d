@@ -1,0 +1,37 @@
+<section class="m-section">
+  <div class="m-tiles">
+    <article class="m-tile m-tile-dark">
+      <div class="m-eyebrow">{{ section.settings.tile_1_eyebrow }}</div>
+      <h2>{{ section.settings.tile_1_heading }}</h2>
+      <p>{{ section.settings.tile_1_text }}</p>
+      <a class="m-btn m-btn-pri" href="{{ section.settings.tile_1_link | default: routes.collections_url }}">{{ section.settings.tile_1_label }}</a>
+      <div class="m-tile-art"><div class="m-watch"></div></div>
+    </article>
+    <article class="m-tile m-tile-light">
+      <div class="m-eyebrow">{{ section.settings.tile_2_eyebrow }}</div>
+      <h2>{{ section.settings.tile_2_heading }}</h2>
+      <p>{{ section.settings.tile_2_text }}</p>
+      <a class="m-btn m-btn-pri" href="{{ section.settings.tile_2_link | default: routes.collections_url }}">{{ section.settings.tile_2_label }}</a>
+      <div class="m-tile-art m-buds"></div>
+    </article>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Feature tiles",
+  "settings": [
+    { "type": "text", "id": "tile_1_eyebrow", "label": "Tile 1 eyebrow", "default": "ساعة Wear Pro" },
+    { "type": "text", "id": "tile_1_heading", "label": "Tile 1 heading", "default": "صحتك تحت سيطرتك." },
+    { "type": "textarea", "id": "tile_1_text", "label": "Tile 1 text", "default": "متابعة يومية للنشاط والنوم والقلب في تصميم ذكي." },
+    { "type": "text", "id": "tile_1_label", "label": "Tile 1 label", "default": "تسوق الساعات" },
+    { "type": "url", "id": "tile_1_link", "label": "Tile 1 link" },
+    { "type": "text", "id": "tile_2_eyebrow", "label": "Tile 2 eyebrow", "default": "سماعات Buds Air" },
+    { "type": "text", "id": "tile_2_heading", "label": "Tile 2 heading", "default": "صوت بدون حدود." },
+    { "type": "textarea", "id": "tile_2_text", "label": "Tile 2 text", "default": "عزل ضوضاء تكيفي وصوت مكاني وتجربة استماع طويلة." },
+    { "type": "text", "id": "tile_2_label", "label": "Tile 2 label", "default": "تسوق الصوتيات" },
+    { "type": "url", "id": "tile_2_link", "label": "Tile 2 link" }
+  ],
+  "presets": [{ "name": "Feature tiles" }]
+}
+{% endschema %}

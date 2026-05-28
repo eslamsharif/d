@@ -1,139 +1,79 @@
 {%- liquid
-  assign card_product = product_card_product
-  assign show_rating = show_rating | default: settings.show_rating
-  assign show_swatches = show_swatches | default: settings.show_color_swatches
+  assign card_product = product_card_product | default: product
   assign selected_variant = card_product.selected_or_first_available_variant
-  assign second_media = card_product.media[1]
+  assign rating_value = card_product.metafields.reviews.rating.value.rating | default: 4.8
+  assign review_count = card_product.metafields.reviews.rating_count.value | default: 128
+  assign fallback_type = 'products.product.tech' | t
 -%}
 
-<article class="product-card product-card--enhanced">
-  <div class="product-card__media-wrap">
-    <a class="product-card__media" href="{{ card_product.url | default: '#' }}" aria-label="{{ card_product.title | default: 'Product' | escape }}">
+<article class="m-card">
+  <div class="m-card-media">
+    <a href="{{ card_product.url | default: '#' }}" aria-label="{{ card_product.title | escape }}">
       {%- if card_product.featured_media -%}
         {{
           card_product.featured_media
-          | image_url: width: 700
+          | image_url: width: 720
           | image_tag:
             loading: 'lazy',
-            sizes: '(min-width: 990px) 25vw, (min-width: 700px) 33vw, 50vw',
-            widths: '240, 360, 480, 700',
-            class: 'product-card__image product-card__image--primary',
+            widths: '260, 420, 560, 720',
+            sizes: '(min-width: 990px) 25vw, (min-width: 700px) 50vw, 100vw',
+            class: 'm-card-img',
             alt: card_product.featured_media.alt | escape
         }}
-        {%- if second_media and second_media.media_type == 'image' -%}
-          {{
-            second_media
-            | image_url: width: 700
-            | image_tag:
-              loading: 'lazy',
-              sizes: '(min-width: 990px) 25vw, (min-width: 700px) 33vw, 50vw',
-              widths: '240, 360, 480, 700',
-              class: 'product-card__image product-card__image--secondary',
-              alt: second_media.alt | escape
-          }}
-        {%- endif -%}
       {%- else -%}
-        <div class="product-card__placeholder">
-          {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-        </div>
+        {% render 'product-art', product: card_product %}
       {%- endif -%}
     </a>
 
-    <div class="product-card__badges">
-      {%- if card_product != blank and card_product.compare_at_price > card_product.price -%}
-        <span>Sale</span>
-      {%- elsif card_product.tags contains 'new' or card_product.tags contains 'New' -%}
-        <span>New</span>
-      {%- else -%}
-        <span>Trending</span>
-      {%- endif -%}
-    </div>
+    {%- if card_product.compare_at_price > card_product.price -%}
+      <span class="m-badge m-badge-sale">{{ 'products.product.sale' | t }}</span>
+    {%- elsif card_product.tags contains 'new' or card_product.tags contains 'New' -%}
+      <span class="m-badge m-badge-new">{{ 'products.product.new' | t }}</span>
+    {%- else -%}
+      <span class="m-badge">{{ 'products.product.featured' | t }}</span>
+    {%- endif -%}
 
-    <div class="product-card__actions" aria-label="Product actions">
-      <a href="{{ card_product.url | default: '#' }}" aria-label="View {{ card_product.title | default: 'Product' | escape }}">
-        {% render 'icon', icon: 'search', class: 'icon icon--small' %}
-      </a>
-      <a href="{{ card_product.url | default: '#' }}" aria-label="Save {{ card_product.title | default: 'Product' | escape }}">
-        {% render 'icon', icon: 'heart', class: 'icon icon--small' %}
-      </a>
-    </div>
+    <a class="m-fav" href="{{ card_product.url | default: '#' }}" aria-label="{{ 'products.product.save' | t }}">
+      {% render 'icon', icon: 'heart', class: 'icon icon--small' %}
+    </a>
 
     {%- if card_product != blank and selected_variant.available -%}
-      {%- form 'product', card_product, class: 'product-card__quick-add' -%}
+      {%- form 'product', card_product, class: 'm-card-quick' -%}
         <input type="hidden" name="id" value="{{ selected_variant.id }}">
         <input type="hidden" name="quantity" value="1">
-        <button type="submit">Quick Add</button>
+        <button
+          type="submit"
+          data-loading-label="{{ 'products.product.adding' | t }}"
+          data-added-label="{{ 'products.product.added' | t }}"
+        >
+          {{ 'products.product.quick_add' | t }}
+        </button>
       {%- endform -%}
     {%- endif -%}
   </div>
 
-  <div class="product-card__body">
-    {%- if card_product.vendor != blank -%}
-      <p class="product-card__vendor">{{ card_product.vendor }}</p>
+  <div class="m-card-body">
+    <div class="m-card-cat">{{ card_product.type | default: card_product.vendor | default: fallback_type }}</div>
+    <h3 class="m-card-name"><a href="{{ card_product.url | default: '#' }}">{{ card_product.title | default: 'هاتف Pro 16' }}</a></h3>
+
+    {%- if settings.show_ratings -%}
+      <div class="m-card-rate">
+        {% render 'icon', icon: 'star', class: 'icon icon--tiny' %}
+        <span>{{ rating_value }}</span>
+        <span>({{ review_count }})</span>
+      </div>
     {%- endif -%}
 
-    <h3 class="product-card__title">
-      <a href="{{ card_product.url | default: '#' }}">{{ card_product.title | default: 'Gradient Graphic T-shirt' }}</a>
-    </h3>
-
-    {%- if show_rating -%}
-      {%- liquid
-        assign rating_value = card_product.metafields.reviews.rating.value.rating | default: 4.5
-      -%}
-      {% render 'rating-stars', rating: rating_value, show_text: true %}
-    {%- endif -%}
-
-    <div class="product-card__footer">
+    <div class="m-card-foot">
       {%- if card_product != blank -%}
         {% render 'price', product: card_product %}
       {%- else -%}
-        <span class="price">
-          <span class="price__current">$145</span>
-          <span class="price__compare">$180</span>
-          <span class="price__badge">-20%</span>
-        </span>
+        <span class="m-price"><span class="m-price-current">64,999 ج.م</span></span>
       {%- endif -%}
-    </div>
 
-    {%- if show_swatches and card_product != blank -%}
-      {%- for option in card_product.options_with_values -%}
-        {%- assign option_name = option.name | downcase -%}
-        {%- if option_name contains 'color' or option_name contains 'colour' -%}
-          <div class="product-card__swatches" aria-label="{{ option.name }}">
-            {%- for value in option.values limit: 5 -%}
-              {%- liquid
-                assign value_downcase = value | downcase
-                assign swatch_color = '#8a7a63'
-                case value_downcase
-                  when 'black'
-                    assign swatch_color = '#161616'
-                  when 'white'
-                    assign swatch_color = '#f7f7f7'
-                  when 'blue'
-                    assign swatch_color = '#2f5f89'
-                  when 'navy'
-                    assign swatch_color = '#1c2742'
-                  when 'green'
-                    assign swatch_color = '#5e6b4f'
-                  when 'khaki'
-                    assign swatch_color = '#77705d'
-                  when 'brown'
-                    assign swatch_color = '#6b5142'
-                  when 'royal brown'
-                    assign swatch_color = '#594336'
-                  when 'gray'
-                    assign swatch_color = '#8c8c8c'
-                  when 'grey'
-                    assign swatch_color = '#8c8c8c'
-                  when 'red'
-                    assign swatch_color = '#b83d32'
-                endcase
-              -%}
-              <span class="swatch" style="--swatch-color: {{ swatch_color }};" title="{{ value | escape }}"></span>
-            {%- endfor -%}
-          </div>
-        {%- endif -%}
-      {%- endfor -%}
-    {%- endif -%}
+      <a class="m-card-open" href="{{ card_product.url | default: '#' }}" aria-label="{{ 'products.product.view' | t }}">
+        {% render 'icon', icon: 'plus', class: 'icon icon--small' %}
+      </a>
+    </div>
   </div>
 </article>

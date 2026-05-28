@@ -1,14 +1,16 @@
 {
   "current": {
-    "logo_text": "SHOP.CO",
+    "logo_text": "MATGER",
+    "text_direction": "rtl",
+    "color_accent": "#0071e3",
     "color_background": "#ffffff",
-    "color_foreground": "#000000",
-    "color_muted": "#666666",
-    "color_surface": "#f2f0f1",
-    "color_border": "#e7e7e7",
-    "color_accent": "#7a8f65",
-    "page_width": 1240,
-    "show_rating": true,
-    "show_color_swatches": true
+    "color_text": "#1d1d1f",
+    "color_muted": "#6e6e73",
+    "color_line": "#e8e8ed",
+    "color_surface": "#f5f5f7",
+    "color_surface_2": "#fbfbfd",
+    "page_width": 1200,
+    "radius": 24,
+    "show_ratings": true
   }
 }

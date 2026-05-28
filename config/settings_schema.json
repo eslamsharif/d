@@ -1,12 +1,11 @@
 [
   {
-    "name": "Theme information",
-    "settings": [
-      {
-        "type": "paragraph",
-        "content": "SHOP.CO inspired Shopify OS 2.0 theme built from the E-commerce Website Template Freebie Community visual direction."
-      }
-    ]
+    "name": "theme_info",
+    "theme_name": "MATGER",
+    "theme_author": "Eslam Sharif",
+    "theme_version": "1.0.0",
+    "theme_documentation_url": "https://github.com/eslamsharif/d",
+    "theme_support_url": "https://github.com/eslamsharif/d/issues"
   },
   {
     "name": "Brand",
@@ -19,67 +18,31 @@
       {
         "type": "text",
         "id": "logo_text",
-        "label": "Text logo",
-        "default": "SHOP.CO"
-      }
-    ]
-  },
-  {
-    "name": "Typography",
-    "settings": [
-      {
-        "type": "font_picker",
-        "id": "heading_font",
-        "label": "Heading font",
-        "default": "helvetica_n7"
+        "label": "Logo text",
+        "default": "MATGER"
       },
       {
-        "type": "font_picker",
-        "id": "body_font",
-        "label": "Body font",
-        "default": "helvetica_n4"
+        "type": "select",
+        "id": "text_direction",
+        "label": "Text direction",
+        "default": "rtl",
+        "options": [
+          { "value": "rtl", "label": "RTL" },
+          { "value": "ltr", "label": "LTR" }
+        ]
       }
     ]
   },
   {
     "name": "Colors",
     "settings": [
-      {
-        "type": "color",
-        "id": "color_background",
-        "label": "Background",
-        "default": "#ffffff"
-      },
-      {
-        "type": "color",
-        "id": "color_foreground",
-        "label": "Text",
-        "default": "#000000"
-      },
-      {
-        "type": "color",
-        "id": "color_muted",
-        "label": "Muted text",
-        "default": "#666666"
-      },
-      {
-        "type": "color",
-        "id": "color_surface",
-        "label": "Surface",
-        "default": "#f2f0f1"
-      },
-      {
-        "type": "color",
-        "id": "color_border",
-        "label": "Border",
-        "default": "#e7e7e7"
-      },
-      {
-        "type": "color",
-        "id": "color_accent",
-        "label": "Accent",
-        "default": "#7a8f65"
-      }
+      { "type": "color", "id": "color_accent", "label": "Accent", "default": "#0071e3" },
+      { "type": "color", "id": "color_background", "label": "Background", "default": "#ffffff" },
+      { "type": "color", "id": "color_text", "label": "Text", "default": "#1d1d1f" },
+      { "type": "color", "id": "color_muted", "label": "Muted text", "default": "#6e6e73" },
+      { "type": "color", "id": "color_line", "label": "Lines", "default": "#e8e8ed" },
+      { "type": "color", "id": "color_surface", "label": "Surface", "default": "#f5f5f7" },
+      { "type": "color", "id": "color_surface_2", "label": "Secondary surface", "default": "#fbfbfd" }
     ]
   },
   {
@@ -89,22 +52,26 @@
         "type": "range",
         "id": "page_width",
         "min": 1100,
-        "max": 1600,
+        "max": 1500,
         "step": 20,
         "unit": "px",
         "label": "Page width",
-        "default": 1240
+        "default": 1200
+      },
+      {
+        "type": "range",
+        "id": "radius",
+        "min": 10,
+        "max": 32,
+        "step": 2,
+        "unit": "px",
+        "label": "Corner radius",
+        "default": 24
       },
       {
         "type": "checkbox",
-        "id": "show_rating",
-        "label": "Show product ratings",
-        "default": true
-      },
-      {
-        "type": "checkbox",
-        "id": "show_color_swatches",
-        "label": "Show product color swatches",
+        "id": "show_ratings",
+        "label": "Show ratings",
         "default": true
       }
     ]

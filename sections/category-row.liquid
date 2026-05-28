@@ -1,0 +1,56 @@
+<section class="m-section" id="categories">
+  <div class="m-section-head">
+    <div>
+      <div class="m-eyebrow">{{ section.settings.eyebrow }}</div>
+      <h2 class="m-section-title">{{ section.settings.heading }}</h2>
+    </div>
+    <a class="m-link" href="{{ routes.collections_url }}">عرض الكل {% render 'icon', icon: 'chevron', class: 'icon icon--small' %}</a>
+  </div>
+  <div class="m-cats">
+    {%- for block in section.blocks -%}
+      <a class="m-cat" href="{{ block.settings.link | default: routes.collections_url }}" {{ block.shopify_attributes }}>
+        <span>{% render 'icon', icon: block.settings.icon, class: 'icon icon--small' %}</span>
+        <strong>{{ block.settings.label }}</strong>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Category row",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "تسوق حسب الفئة" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "كل ما تحتاجه من التكنولوجيا" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "sparkle", "options": [
+          { "value": "sparkle", "label": "Sparkle" },
+          { "value": "bag", "label": "Bag" },
+          { "value": "shield", "label": "Shield" },
+          { "value": "star", "label": "Star" },
+          { "value": "refresh", "label": "Refresh" }
+        ] },
+        { "type": "text", "id": "label", "label": "Label", "default": "هواتف" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Category row",
+      "blocks": [
+        { "type": "category", "settings": { "label": "هواتف", "icon": "sparkle" } },
+        { "type": "category", "settings": { "label": "صوتيات", "icon": "star" } },
+        { "type": "category", "settings": { "label": "ساعات", "icon": "shield" } },
+        { "type": "category", "settings": { "label": "حاسبات", "icon": "bag" } },
+        { "type": "category", "settings": { "label": "ملحقات", "icon": "refresh" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

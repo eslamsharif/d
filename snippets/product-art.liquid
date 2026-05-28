@@ -1,0 +1,17 @@
+{%- liquid
+  assign kind = product.type | downcase
+  assign title = product.title | downcase
+  assign art = 'device'
+  if kind contains 'audio' or title contains 'buds' or title contains 'headphone' or title contains 'سماعة'
+    assign art = 'audio'
+  elsif kind contains 'watch' or title contains 'watch' or title contains 'ساعة'
+    assign art = 'watch'
+  elsif kind contains 'laptop' or title contains 'laptop' or title contains 'mac' or title contains 'لاب'
+    assign art = 'laptop'
+  elsif kind contains 'tablet' or title contains 'tablet' or title contains 'تابلت'
+    assign art = 'tablet'
+  endif
+-%}
+<div class="m-art m-art--{{ art }}" aria-hidden="true">
+  <span></span>
+</div>

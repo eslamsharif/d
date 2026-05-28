@@ -1,62 +1,93 @@
-<section class="cart-page">
-  <div class="page-width">
-    <h1>{{ 'cart.general.title' | t }}</h1>
+<section class="m-cart">
+  <div class="m-container">
+    <div class="m-page-head">
+      <div>
+        <div class="m-eyebrow">{{ section.settings.eyebrow }}</div>
+        <h1>{{ 'cart.general.title' | t }}</h1>
+      </div>
+      <a class="m-link" href="{{ routes.all_products_collection_url }}">{{ 'general.continue_shopping' | t }}</a>
+    </div>
 
-    {%- if cart.item_count > 0 -%}
-      <form action="{{ routes.cart_url }}" method="post" class="cart-page__grid">
-        <div class="cart-items">
-          {%- for item in cart.items -%}
-            <article class="cart-item">
-              <a class="cart-item__media" href="{{ item.url }}">
-                {%- if item.image -%}
-                  {{ item.image | image_url: width: 220 | image_tag: loading: 'lazy', widths: '120, 180, 220', alt: item.image.alt | escape }}
-                {%- else -%}
-                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
-                {%- endif -%}
+    {% if cart.item_count > 0 %}
+      <form action="{{ routes.cart_url }}" method="post" novalidate class="m-cart-layout">
+        <div class="m-cart-items">
+          {% for item in cart.items %}
+            <article class="m-cart-item">
+              <a class="m-cart-image" href="{{ item.url }}">
+                {% if item.image %}
+                  {{ item.image | image_url: width: 280 | image_tag: loading: 'lazy', sizes: '120px', widths: '120, 200, 280', alt: item.image.alt | escape }}
+                {% else %}
+                  {% render 'product-art', product: item.product %}
+                {% endif %}
               </a>
-
-              <div class="cart-item__details">
-                <h2><a href="{{ item.url }}">{{ item.product.title }}</a></h2>
-                {%- unless item.product.has_only_default_variant -%}
+              <div class="m-cart-main">
+                <a href="{{ item.url }}">{{ item.product.title }}</a>
+                {% unless item.product.has_only_default_variant %}
                   <p>{{ item.variant.title }}</p>
-                {%- endunless -%}
-                <a class="cart-item__remove" href="{{ item.url_to_remove }}">{{ 'cart.general.remove' | t }}</a>
+                {% endunless %}
+                {% if item.selling_plan_allocation %}
+                  <p>{{ item.selling_plan_allocation.selling_plan.name }}</p>
+                {% endif %}
+                <a class="m-remove" href="{{ item.url_to_remove }}">{{ 'cart.general.remove' | t }}</a>
               </div>
-
-              <label class="quantity-control cart-item__quantity" for="Updates-{{ forloop.index }}">
-                <button type="button" data-quantity-minus aria-label="Decrease quantity">{% render 'icon', icon: 'minus' %}</button>
-                <input id="Updates-{{ forloop.index }}" type="number" name="updates[]" value="{{ item.quantity }}" min="0">
-                <button type="button" data-quantity-plus aria-label="Increase quantity">{% render 'icon', icon: 'plus' %}</button>
-              </label>
-
-              <div class="cart-item__price">{{ item.final_line_price | money }}</div>
+              <div class="m-cart-qty">
+                <div class="m-qty" data-quantity>
+                  <button type="button" data-quantity-minus aria-label="{{ 'products.product.decrease_quantity' | t }}">{% render 'icon', icon: 'minus' %}</button>
+                  <input type="number" name="updates[]" min="0" value="{{ item.quantity }}" aria-label="{{ 'products.product.quantity' | t }}">
+                  <button type="button" data-quantity-plus aria-label="{{ 'products.product.increase_quantity' | t }}">{% render 'icon', icon: 'plus' %}</button>
+                </div>
+              </div>
+              <div class="m-cart-price">{{ item.final_line_price | money }}</div>
             </article>
-          {%- endfor -%}
+          {% endfor %}
         </div>
 
-        <aside class="cart-summary">
-          <h2>Order Summary</h2>
-          <div class="cart-summary__row">
+        <aside class="m-cart-summary">
+          <h2>{{ 'cart.general.summary' | t }}</h2>
+          <div class="m-summary-row">
             <span>{{ 'cart.general.subtotal' | t }}</span>
             <strong>{{ cart.total_price | money }}</strong>
           </div>
-          <p>Taxes and shipping calculated at checkout.</p>
-          <button class="button button--secondary" type="submit" name="update">Update Cart</button>
-          <button class="button button--primary" type="submit" name="checkout">{{ 'cart.general.checkout' | t }}</button>
+          <p>{{ 'cart.general.taxes_and_shipping' | t }}</p>
+          <button class="m-button m-button--muted" type="submit" name="update">{{ 'cart.general.update' | t }}</button>
+          <button class="m-button m-button--dark" type="submit" name="checkout">{{ 'cart.general.checkout' | t }}</button>
+          <div class="m-assurance m-assurance--stacked">
+            <div>{% render 'icon', icon: 'shield' %}<span>{{ section.settings.secure_text }}</span></div>
+            <div>{% render 'icon', icon: 'truck' %}<span>{{ section.settings.delivery_text }}</span></div>
+          </div>
         </aside>
       </form>
-    {%- else -%}
-      <div class="empty-state">
+    {% else %}
+      <div class="m-empty">
         <h2>{{ 'cart.general.empty' | t }}</h2>
-        <a class="button button--primary" href="{{ routes.collections_url }}">Continue Shopping</a>
+        <a class="m-button m-button--dark" href="{{ routes.all_products_collection_url }}">{{ 'general.continue_shopping' | t }}</a>
       </div>
-    {%- endif -%}
+    {% endif %}
   </div>
 </section>
 
 {% schema %}
 {
   "name": "Main cart",
-  "settings": []
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Your bag"
+    },
+    {
+      "type": "text",
+      "id": "secure_text",
+      "label": "Secure text",
+      "default": "Secure payment"
+    },
+    {
+      "type": "text",
+      "id": "delivery_text",
+      "label": "Delivery text",
+      "default": "Fast delivery"
+    }
+  ]
 }
 {% endschema %}

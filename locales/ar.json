@@ -1,0 +1,71 @@
+{
+  "general": {
+    "home": "الرئيسية",
+    "menu": "القائمة",
+    "cart": "السلة",
+    "account": "حسابي",
+    "continue_shopping": "متابعة التسوق",
+    "pagination": "ترقيم الصفحات",
+    "previous": "السابق",
+    "next": "التالي",
+    "back_home": "العودة للرئيسية",
+    "search_placeholder": "ابحث عن منتج أو فئة",
+    "search": {
+      "label": "بحث",
+      "title": "البحث",
+      "placeholder": "ابحث عن منتج",
+      "submit": "بحث",
+      "results_with_count": "{{ count }} نتيجة",
+      "no_results": "لم يتم العثور على منتجات"
+    },
+    "404": {
+      "title": "الصفحة غير موجودة",
+      "subtext": "الصفحة التي تبحث عنها غير متاحة أو تم نقلها."
+    }
+  },
+  "products": {
+    "product": {
+      "rating": "تقييم المنتج",
+      "quantity": "الكمية",
+      "increase_quantity": "زيادة الكمية",
+      "decrease_quantity": "تقليل الكمية",
+      "add_to_cart": "أضف للسلة",
+      "quick_add": "أضف سريعًا",
+      "adding": "جار الإضافة",
+      "added": "تمت الإضافة",
+      "sold_out": "غير متوفر",
+      "save": "حفظ المنتج",
+      "view": "عرض المنتج",
+      "sale": "خصم",
+      "new": "جديد",
+      "featured": "مميز",
+      "tech": "تقنية",
+      "spec_brand": "العلامة",
+      "spec_type": "النوع",
+      "spec_availability": "التوفر",
+      "in_stock": "متوفر"
+    }
+  },
+  "collections": {
+    "general": {
+      "title": "المجموعات",
+      "empty": "لا توجد منتجات في هذه المجموعة",
+      "product_count": "{{ count }} منتج"
+    },
+    "sorting": {
+      "title": "الترتيب حسب"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "سلة التسوق",
+      "empty": "سلتك فارغة",
+      "summary": "ملخص الطلب",
+      "subtotal": "الإجمالي الفرعي",
+      "taxes_and_shipping": "يتم احتساب الشحن والضرائب عند الدفع.",
+      "checkout": "إتمام الشراء",
+      "update": "تحديث السلة",
+      "remove": "حذف"
+    }
+  }
+}

@@ -1,34 +1,21 @@
-# SHOP.CO Shopify Theme
+# MATGER Shopify Theme
 
-Shopify Online Store 2.0 theme inspired by the linked Figma ecommerce template.
+Shopify Online Store 2.0 theme rebuilt from the provided MATGER Store design files.
+
+## Direction
+
+- Arabic RTL storefront for technology products.
+- Apple and Google inspired visual language: clean surfaces, soft depth, product-focused hero scenes, category pills, and refined cards.
+- Built from scratch as a Shopify theme, not a React app port.
 
 ## Included
 
-- Responsive homepage with hero, brand strip, featured collections, style cards, testimonials, and newsletter.
-- Reusable service highlight and promo panel sections for a richer editorial storefront.
-- Product page with media gallery, variant picker, quantity selector, product form, and dynamic checkout button.
-- Collection page with product grid, sorting, and optional tag filters.
-- Cart page, search page, content page, collections list, and 404 template.
-- Enhanced header with announcement messaging, quick-link rail, search, account, cart, and dropdown-ready navigation.
-- Product cards with sale/new badges, hover imagery, color swatches, wishlist/view actions, and AJAX quick add.
-- Theme editor settings for colors, fonts, logo text, page width, ratings, swatches, header links, and service blocks.
+- Homepage with MATGER hero, category strip, feature tiles, featured products, value strip, and weekly deals.
+- Enhanced header with promo bar, search, menu, account, cart, and collection navigation.
+- Product cards with gradients, badges, ratings, swatches, quick add, and wishlist-style action.
+- Product detail page with gallery, options, quantity, add to cart, dynamic checkout, trust badges, and detail accordions.
+- Collection, cart, search, content page, 404, and collection-list templates.
 
 ## Upload
 
-1. Open Shopify Admin.
-2. Go to Online Store > Themes.
-3. Choose Add theme > Upload zip file.
-4. Upload `shopco-shopify-theme.zip`.
-5. Customize homepage sections and connect real collections/images from the Theme Editor.
-
-## Local Shopify CLI
-
-If Shopify CLI is installed:
-
-```bash
-shopify theme dev --store your-store.myshopify.com
-```
-
-## Notes
-
-The bundled hero image is a generated fallback asset. Replace it from the Hero banner section settings when you have final brand imagery.
+Upload `matger-shopify-theme.zip` from this folder in Shopify Admin > Online Store > Themes > Add theme > Upload zip file.

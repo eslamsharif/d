@@ -1,0 +1,88 @@
+<section class="m-collection">
+  <div class="m-container">
+    <div class="m-page-head">
+      <div>
+        <div class="m-eyebrow">{{ section.settings.eyebrow }}</div>
+        <h1>{{ collection.title }}</h1>
+      </div>
+      {% if collection.description != blank %}
+        <div class="m-page-copy">{{ collection.description | strip_html | truncatewords: 28 }}</div>
+      {% endif %}
+    </div>
+
+    {% paginate collection.products by section.settings.products_per_page %}
+      <div class="m-toolbar">
+        <span>{{ 'collections.general.product_count' | t: count: collection.products_count }}</span>
+        <div class="m-sort">
+          <label for="SortBy">{{ 'collections.sorting.title' | t }}</label>
+          <select id="SortBy" name="sort_by" form="FacetSortForm">
+            {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+            {% for option in collection.sort_options %}
+              <option value="{{ option.value }}" {% if option.value == sort_by %}selected{% endif %}>{{ option.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+
+      <form id="FacetSortForm" method="get" class="m-visually-hidden"></form>
+
+      {% if collection.products_count > 0 %}
+        <div class="m-grid m-grid--products">
+          {% for product in collection.products %}
+            {% render 'product-card', product: product %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="m-empty">
+          <h2>{{ 'collections.general.empty' | t }}</h2>
+          <a class="m-button m-button--dark" href="{{ routes.all_products_collection_url }}">{{ 'general.continue_shopping' | t }}</a>
+        </div>
+      {% endif %}
+
+      {% if paginate.pages > 1 %}
+        <nav class="m-pagination" role="navigation" aria-label="{{ 'general.pagination' | t }}">
+          {% if paginate.previous %}
+            <a href="{{ paginate.previous.url }}">{% render 'icon', icon: 'chevron-left' %}<span>{{ 'general.previous' | t }}</span></a>
+          {% endif %}
+          <span>{{ paginate.current_page }} / {{ paginate.pages }}</span>
+          {% if paginate.next %}
+            <a href="{{ paginate.next.url }}"><span>{{ 'general.next' | t }}</span>{% render 'icon', icon: 'chevron' %}</a>
+          {% endif %}
+        </nav>
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</section>
+
+<script>
+  document.addEventListener('change', function(event) {
+    if (event.target && event.target.id === 'SortBy') {
+      var url = new URL(window.location.href);
+      url.searchParams.set('sort_by', event.target.value);
+      window.location.href = url.toString();
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Main collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Shop smart"
+    },
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 32,
+      "step": 4,
+      "default": 16
+    }
+  ]
+}
+{% endschema %}

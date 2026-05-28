@@ -1,141 +1,77 @@
-<header class="site-header" data-section-id="{{ section.id }}">
-  {%- if section.settings.announcement != blank -%}
-    <div class="announcement-bar">
-      <div class="page-width announcement-bar__inner">
-        <div class="announcement-bar__message">
-          <span>{{ section.settings.announcement }}</span>
-          {%- if section.settings.announcement_secondary != blank -%}
-            <span>{{ section.settings.announcement_secondary }}</span>
-          {%- endif -%}
-        </div>
-        {%- if section.settings.announcement_link != blank -%}
-          <a href="{{ section.settings.announcement_link }}">{{ section.settings.announcement_link_label }}</a>
+<header class="m-header">
+  {%- if section.settings.promo_text != blank -%}
+    <div class="m-promo">
+      <div class="m-promo-inner">
+        {% render 'icon', icon: 'sparkle', class: 'icon icon--tiny' %}
+        <span>{{ section.settings.promo_text }}</span>
+        {%- if section.settings.promo_link != blank -%}
+          <a href="{{ section.settings.promo_link }}">{{ section.settings.promo_link_label }}</a>
         {%- endif -%}
       </div>
     </div>
   {%- endif -%}
 
-  <div class="page-width site-header__inner">
-    <button class="icon-button site-header__menu-button" type="button" aria-label="{{ 'general.menu' | t }}" aria-expanded="false" data-menu-toggle>
+  <nav class="m-nav" aria-label="Primary navigation">
+    <button class="m-icon-btn m-menu-btn" type="button" aria-label="{{ 'general.menu' | t }}" aria-expanded="false" data-menu-toggle>
       {% render 'icon', icon: 'menu' %}
     </button>
 
-    <a class="site-header__logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
-      {%- if section.settings.logo != blank -%}
-        {{
-          section.settings.logo
-          | image_url: width: 260
-          | image_tag: loading: 'eager', widths: '120, 180, 260', class: 'site-header__logo-image', alt: shop.name
-        }}
-      {%- else -%}
-        {{ settings.logo_text | default: shop.name }}
-      {%- endif -%}
+    <a class="m-brand" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+      <span class="m-brand-mark" aria-hidden="true">M</span>
+      <span class="m-brand-word">{{ settings.logo_text | default: 'MATGER' }}</span>
     </a>
 
-    <nav class="site-header__nav" aria-label="Primary navigation">
-      {%- for link in section.settings.menu.links -%}
-        <div class="site-header__nav-item">
-          <a href="{{ link.url }}" class="site-header__nav-link">
-            {{ link.title }}
-            {%- if link.links != blank -%}
-              {% render 'icon', icon: 'chevron-down', class: 'icon icon--small' %}
-            {%- endif -%}
-          </a>
+    <ul class="m-nav-links">
+      <li><a href="{{ routes.root_url }}" class="{% if request.page_type == 'index' %}is-active{% endif %}">الرئيسية</a></li>
+      {%- if section.settings.menu != blank and section.settings.menu.links.size > 0 -%}
+        {%- for link in section.settings.menu.links -%}
+          <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for collection in collections limit: 7 -%}
+          {%- unless collection.handle == 'frontpage' -%}
+            <li><a href="{{ collection.url }}">{{ collection.title }}</a></li>
+          {%- endunless -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </ul>
 
-          {%- if link.links != blank -%}
-            <div class="site-header__dropdown">
-              <div class="site-header__dropdown-grid">
-                {%- for child_link in link.links -%}
-                  <a href="{{ child_link.url }}">
-                    <strong>{{ child_link.title }}</strong>
-                    {%- if child_link.links != blank -%}
-                      <span>{{ child_link.links.size }} collections</span>
-                    {%- else -%}
-                      <span>Shop now</span>
-                    {%- endif -%}
-                  </a>
-                {%- endfor -%}
-              </div>
-            </div>
-          {%- endif -%}
-        </div>
-      {%- endfor -%}
-    </nav>
-
-    <form action="{{ routes.search_url }}" method="get" role="search" class="site-header__search">
-      <input type="hidden" name="type" value="product">
-      <span class="site-header__search-icon">{% render 'icon', icon: 'search' %}</span>
-      <input
-        type="search"
-        name="q"
-        value="{{ search.terms | escape }}"
-        placeholder="{{ 'general.search.placeholder' | t }}"
-        aria-label="{{ 'general.search.search' | t }}"
-      >
-    </form>
-
-    <div class="site-header__actions">
-      <a class="icon-button site-header__search-shortcut" href="{{ routes.search_url }}" aria-label="{{ 'general.search.search' | t }}">
+    <div class="m-nav-tools">
+      <button class="m-icon-btn" type="button" aria-label="{{ 'general.search.label' | t }}" data-search-toggle>
         {% render 'icon', icon: 'search' %}
-      </a>
-      <a class="icon-button" href="{{ routes.cart_url }}" aria-label="{{ 'general.cart' | t }}" data-cart-link>
-        {% render 'icon', icon: 'cart' %}
-        {%- if cart.item_count > 0 -%}
-          <span class="cart-count" data-cart-count>{{ cart.item_count }}</span>
-        {%- endif -%}
-      </a>
+      </button>
       {%- if shop.customer_accounts_enabled -%}
-        <a class="icon-button" href="{{ routes.account_url }}" aria-label="{{ 'general.account' | t }}">
-          {% render 'icon', icon: 'account' %}
+        <a class="m-icon-btn" href="{{ routes.account_url }}" aria-label="{{ 'general.account' | t }}">
+          {% render 'icon', icon: 'user' %}
         </a>
       {%- endif -%}
+      <a class="m-icon-btn" href="{{ routes.cart_url }}" aria-label="{{ 'general.cart' | t }}" data-cart-link>
+        {% render 'icon', icon: 'bag' %}
+        {%- if cart.item_count > 0 -%}<span class="m-cart-dot" data-cart-count>{{ cart.item_count }}</span>{%- endif -%}
+      </a>
     </div>
-  </div>
 
-  {%- if section.settings.show_quick_links -%}
-    <div class="site-header__rail">
-      <div class="page-width site-header__rail-inner">
-        <div class="site-header__rail-links">
-          {%- if section.blocks.size > 0 -%}
-            {%- for block in section.blocks -%}
-              <a href="{{ block.settings.link | default: routes.collections_url }}" {{ block.shopify_attributes }}>{{ block.settings.label }}</a>
-            {%- endfor -%}
-          {%- else -%}
-            <a href="{{ routes.collections_url }}">New Arrivals</a>
-            <a href="{{ routes.collections_url }}">Top Selling</a>
-            <a href="{{ routes.collections_url }}">Casual</a>
-            <a href="{{ routes.collections_url }}">Formal</a>
-            <a href="{{ routes.collections_url }}">Sale</a>
-          {%- endif -%}
-        </div>
+    <form action="{{ routes.search_url }}" method="get" class="m-search-strip" role="search" data-search-strip hidden>
+      {% render 'icon', icon: 'search' %}
+      <input type="hidden" name="type" value="product">
+      <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search_placeholder' | t }}" aria-label="{{ 'general.search.label' | t }}">
+      <button class="m-icon-btn" type="button" aria-label="إغلاق البحث" data-search-toggle>{% render 'icon', icon: 'close' %}</button>
+    </form>
+  </nav>
 
-        {%- if section.settings.rail_promo_label != blank -%}
-          <a class="site-header__rail-promo" href="{{ section.settings.rail_promo_link | default: routes.collections_url }}">
-            {{ section.settings.rail_promo_label }}
-            {% render 'icon', icon: 'arrow-right', class: 'icon icon--small' %}
-          </a>
-        {%- endif -%}
-      </div>
-    </div>
-  {%- endif -%}
-
-  <div class="mobile-menu" data-mobile-menu hidden>
-    <div class="mobile-menu__panel">
-      <button class="icon-button mobile-menu__close" type="button" aria-label="Close menu" data-menu-close>
-        {% render 'icon', icon: 'close' %}
-      </button>
-      <form action="{{ routes.search_url }}" method="get" role="search" class="mobile-menu__search">
-        <input type="hidden" name="type" value="product">
-        <input type="search" name="q" placeholder="{{ 'general.search.placeholder' | t }}">
-      </form>
-      <nav class="mobile-menu__nav" aria-label="Mobile navigation">
+  <div class="m-mobile-menu" data-mobile-menu hidden>
+    <div class="m-mobile-panel">
+      <button class="m-icon-btn m-mobile-close" type="button" aria-label="إغلاق" data-menu-close>{% render 'icon', icon: 'close' %}</button>
+      <a href="{{ routes.root_url }}">الرئيسية</a>
+      {%- if section.settings.menu != blank -%}
         {%- for link in section.settings.menu.links -%}
           <a href="{{ link.url }}">{{ link.title }}</a>
-          {%- for child_link in link.links -%}
-            <a class="mobile-menu__child-link" href="{{ child_link.url }}">{{ child_link.title }}</a>
-          {%- endfor -%}
         {%- endfor -%}
-      </nav>
+      {%- else -%}
+        {%- for collection in collections limit: 8 -%}
+          {%- unless collection.handle == 'frontpage' -%}<a href="{{ collection.url }}">{{ collection.title }}</a>{%- endunless -%}
+        {%- endfor -%}
+      {%- endif -%}
     </div>
   </div>
 </header>
@@ -144,76 +80,10 @@
 {
   "name": "Header",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo image"
-    },
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Menu",
-      "default": "main-menu"
-    },
-    {
-      "type": "text",
-      "id": "announcement",
-      "label": "Announcement",
-      "default": "Sign up and get 20% off your first order."
-    },
-    {
-      "type": "text",
-      "id": "announcement_secondary",
-      "label": "Secondary announcement",
-      "default": "Free shipping on orders over $75"
-    },
-    {
-      "type": "text",
-      "id": "announcement_link_label",
-      "label": "Announcement link label",
-      "default": "Shop Now"
-    },
-    {
-      "type": "url",
-      "id": "announcement_link",
-      "label": "Announcement link"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_quick_links",
-      "label": "Show quick links rail",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "rail_promo_label",
-      "label": "Rail promo label",
-      "default": "Limited Drop"
-    },
-    {
-      "type": "url",
-      "id": "rail_promo_link",
-      "label": "Rail promo link"
-    }
-  ],
-  "blocks": [
-    {
-      "type": "quick_link",
-      "name": "Quick link",
-      "settings": [
-        {
-          "type": "text",
-          "id": "label",
-          "label": "Label",
-          "default": "New Arrivals"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link"
-        }
-      ]
-    }
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "text", "id": "promo_text", "label": "Promo text", "default": "شحن مجاني للطلبات فوق 3000 ج.م" },
+    { "type": "text", "id": "promo_link_label", "label": "Promo link label", "default": "تسوق الآن" },
+    { "type": "url", "id": "promo_link", "label": "Promo link" }
   ]
 }
 {% endschema %}

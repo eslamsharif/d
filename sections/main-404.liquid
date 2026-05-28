@@ -1,15 +1,17 @@
-<section class="error-page">
-  <div class="page-width empty-state">
-    <p class="eyebrow">404</p>
-    <h1>Page Not Found</h1>
-    <p>The page you are looking for does not exist or has been moved.</p>
-    <a class="button button--primary" href="{{ routes.root_url }}">Back to Home</a>
+<section class="m-page">
+  <div class="m-container m-narrow">
+    <div class="m-empty m-empty--large">
+      <div class="m-eyebrow">404</div>
+      <h1>{{ 'general.404.title' | t }}</h1>
+      <p>{{ 'general.404.subtext' | t }}</p>
+      <a class="m-button m-button--dark" href="{{ routes.root_url }}">{{ 'general.back_home' | t }}</a>
+    </div>
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "404",
+  "name": "Main 404",
   "settings": []
 }
 {% endschema %}
